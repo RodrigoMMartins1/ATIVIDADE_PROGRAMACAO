@@ -1,20 +1,20 @@
 version: '3'
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
+    image: confluentinc/cp-zookeeper:latest #Imagem do container
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
     ports:
-      - "2181:2181"
+      - "2181:2181" #Mapeia porto
 
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:latest #Imagem do container
     depends_on:
-      - zookeeper
+      - zookeeper #Kafka só inicia depois do zookeper
     environment:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true" #Cria automático os tópicos
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"  # Adicione esta linha
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"  # Porta para conectar o ZOOKEEPER
     ports:
-      - "9092:9092"
+      - "9092:9092" #Mapeia porta
